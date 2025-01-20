@@ -1,0 +1,26 @@
+
+
+.task-form {
+    margin: 20px 0;
+  }
+  
+  .task-form input,
+  .task-form textarea,
+  .task-form button {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+  }
+  
+  .task-list {
+    margin-top: 20px;
+  }
+  
+  .task-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
