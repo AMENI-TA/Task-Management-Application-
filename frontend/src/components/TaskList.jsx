@@ -1,6 +1,5 @@
 
 
-import React from 'react';
 
 /*const TaskList = ({ tasks }) => {
   return (
@@ -16,7 +15,7 @@ import React from 'react';
     </ul>
   );
 };
-*/
+
 
 const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
   return (
@@ -32,6 +31,31 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
         </li>
       ))}
     </ul>
+  );
+};
+
+export default TaskList;
+*/
+
+import React from "react";
+import TaskItem from "./TaskItem";
+
+const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
+  if (tasks.length === 0) {
+    return <p>Aucune tâche à afficher</p>;
+  }
+
+  return (
+    <div>
+      {tasks.map((task) => (
+        <TaskItem
+          key={task._id}
+          task={task}
+          onUpdateTask={onUpdateTask}
+          onDeleteTask={onDeleteTask}
+        />
+      ))}
+    </div>
   );
 };
 

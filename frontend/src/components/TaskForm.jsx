@@ -42,42 +42,44 @@ const TaskForm = ({ onSubmit }) => {
 export default TaskForm;
 */
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const TaskForm = ({ onTaskCreated }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [deadline, setDeadline] = useState('');
+const TaskForm = ({ onTaskCreated, initialTask = null }) => {
+  const [task, setTask] = useState(initialTask || { title: "", description: "", priority: 1 });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTask({ ...task, [name]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const task = { title, description, deadline };
     onTaskCreated(task);
-    setTitle('');
-    setDescription('');
-    setDeadline('');
+    setTask({ title: "", description: "", priority: 1 });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Titre"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        name="title"
+        value={task.title}
+        onChange={handleChange}
+        placeholder="Titre de la tâche"
         required
       />
       <textarea
+        name="description"
+        value={task.description}
+        onChange={handleChange}
         placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      ></textarea>
-      <input
-        type="date"
-        value={deadline}
-        onChange={(e) => setDeadline(e.target.value)}
       />
-      <button type="submit">Créer la tâche</button>
+      <select name="priority" value={task.priority} onChange={handleChange}>
+        <option value={1}>Faible</option>
+        <option value={2}>Moyenne</option>
+        <option value={3}>Élevée</option>
+      </select>
+      <button type="submit">{initialTask ? "Modifier" : "Ajouter"}</button>
     </form>
   );
 };
