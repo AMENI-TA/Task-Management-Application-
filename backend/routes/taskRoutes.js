@@ -48,7 +48,7 @@ router.post("/", protect, createTask);
 // Route pour obtenir les tâches de l'utilisateur connecté
 router.get("/", protect, getTasks);
 
-const { updateTask, deleteTask } = require('../controllers/taskController');
+const { updateTask, deleteTask } = require('../controllers/userController');
 
 // Mettre à jour une tâche
 router.put('/:id', protect, updateTask);

@@ -32,7 +32,7 @@ const User = require('./models/User.js');
 
 const express = require('express');
 const dotenv = require('dotenv');
-//const cors = require('cors');
+const cors = require('cors');
 const connectDB = require('./config/dbconnection');
 const userRoutes = require('./routes/userRoutes');
 const taskRoutes = require('./routes/taskRoutes');
@@ -46,7 +46,9 @@ connectDB();
 const app = express();
 
 // Middleware
-//app.use(cors());
+app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000' }));  // Frontend React sur le port 3000
+
 app.use(express.json());  // To parse incoming JSON data
 
 // Routes
