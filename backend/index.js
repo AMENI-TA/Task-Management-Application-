@@ -47,13 +47,14 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000' }));  // Frontend React sur le port 3000
+app.use(cors({ origin: 'http://localhost:3005' }));  // Frontend React sur le port 3000
 
 app.use(express.json());  // To parse incoming JSON data
 
 // Routes
-app.use('/api/users', userRoutes);
-app.use('/api/tasks', taskRoutes);
+app.use('', userRoutes);
+app.use('', taskRoutes);
+
 
 // Define port
 const PORT = process.env.PORT || 3005;

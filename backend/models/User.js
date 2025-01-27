@@ -20,6 +20,8 @@ const userSchema = mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  tasks: { type: mongoose.Types.ObjectId, ref: "tasks"}
+ 
 });
 
 // Hachage du mot de passe avant l'enregistrement
@@ -36,8 +38,10 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+//const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+//module.exports = User;
+module.exports = mongoose.model("User", userSchema);
+
 
 
