@@ -37,16 +37,22 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
 export default TaskList;
 */
 
-import React from "react";
-import TaskItem from "./TaskItem";
-
 const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
+  if (!Array.isArray(tasks)) {
+    return <p>Erreur : la liste des tâches est invalide.</p>;
+  }
+
   if (tasks.length === 0) {
-    return <p>Aucune tâche à afficher</p>;
+    return (
+      <div>
+        <p>Aucune tâche à afficher.</p>
+        <button onClick={() => onUpdateTask({})}>Ajouter une tâche</button>
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div className="task-list">
       {tasks.map((task) => (
         <TaskItem
           key={task._id}

@@ -17,39 +17,44 @@ export const addTask = async (task) => {
 };
 */
 
-import axios from 'axios';
+// src/api/taskApi.js
+import API from './api';  // Utilisation de l'instance axios
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/tasks';
-
-// Récupérer les tâches
-export const fetchTasks = async (token) => {
-  const response = await axios.get(API_URL, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+// Fonction pour récupérer toutes les tâches
+export const fetchTasks = async () => {
+  try {
+    const response = await API.get('/tasks');  // Exemple d'URL
+    return response.data;
+  } catch (error) {
+    throw new Error('Erreur lors de la récupération des tâches');
+  }
 };
 
-// Ajouter une tâche
-export const createTask = async (task, token) => {
-  const response = await axios.post(API_URL, task, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+// Fonction pour créer une nouvelle tâche
+export const createTask = async (taskData) => {
+  try {
+    const response = await API.post('/tasks', taskData);  // Envoi des données pour créer une tâche
+    return response.data;
+  } catch (error) {
+    throw new Error('Erreur lors de la création de la tâche');
+  }
 };
 
-// Mettre à jour une tâche
-export const updateTask = async (id, updates, token) => {
-    const response = await axios.put(`${API_URL}/${id}`, updates, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+// Fonction pour mettre à jour une tâche
+export const updateTask = async (taskId, updatedData) => {
+  try {
+    const response = await API.put(`/tasks/${taskId}`, updatedData);  // Mise à jour de la tâche
     return response.data;
-  };
-  
-  // Supprimer une tâche
-  export const deleteTask = async (id, token) => {
-    const response = await axios.delete(`${API_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  };
-  
+  } catch (error) {
+    throw new Error('Erreur lors de la mise à jour de la tâche');
+  }
+};
+
+// Fonction pour supprimer une tâche
+export const deleteTask = async (taskId) => {
+  try {
+    await API.delete(`/tasks/${taskId}`);  // Suppression de la tâche
+  } catch (error) {
+    throw new Error('Erreur lors de la suppression de la tâche');
+  }
+};

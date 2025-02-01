@@ -19,7 +19,7 @@
   export default TaskFilters;
   */
 
-  import React from "react";
+ /* import React from "react";
 
 const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
   return (
@@ -29,6 +29,40 @@ const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
       <p>Priorité : {["Faible", "Moyenne", "Élevée"][task.priority - 1]}</p>
       <button onClick={() => onUpdateTask(task)}>Modifier</button>
       <button onClick={() => onDeleteTask(task._id)}>Supprimer</button>
+    </div>
+  );
+};
+
+export default TaskItem;
+*/
+
+const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
+  const handleDelete = () => {
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer la tâche "${task.title}" ?`)) {
+      onDeleteTask(task._id);
+    }
+  };
+
+  const getPriorityLabel = (priority) => {
+    switch (priority) {
+      case 1:
+        return "Faible";
+      case 2:
+        return "Moyenne";
+      case 3:
+        return "Élevée";
+      default:
+        return "Non définie";
+    }
+  };
+
+  return (
+    <div className="task-item">
+      <h3>{task.title}</h3>
+      <p>{task.description}</p>
+      <p>Priorité : {getPriorityLabel(task.priority)}</p>
+      <button onClick={() => onUpdateTask(task)}>Modifier</button>
+      <button onClick={handleDelete}>Supprimer</button>
     </div>
   );
 };

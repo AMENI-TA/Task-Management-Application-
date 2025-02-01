@@ -1,23 +1,26 @@
 
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute"; // Importation du composant ProtectedRoute
 
 const App = () => {
-  const isAuthenticated = !!localStorage.getItem("token"); // Vérifie si l'utilisateur est authentifié
-
   return (
     <Router>
       <Navbar />
       <div className="container">
         <Routes>
-          {/* Route protégée : redirige vers la page de connexion si l'utilisateur n'est pas authentifié */}
+          {/* Route protégée : utilisez ProtectedRoute pour la page d'accueil */}
           <Route
             path="/"
-            element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
           />
           {/* Route pour la connexion */}
           <Route path="/login" element={<LoginPage />} />

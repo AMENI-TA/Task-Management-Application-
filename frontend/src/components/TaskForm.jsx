@@ -52,11 +52,23 @@ const TaskForm = ({ onTaskCreated, initialTask = null }) => {
     setTask({ ...task, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+ /* const handleSubmit = (e) => {
     e.preventDefault();
     onTaskCreated(task);
     setTask({ title: "", description: "", priority: 1 });
   };
+*/
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (task.title.trim().length < 3) {
+      alert("Le titre doit comporter au moins 3 caractères");
+      return;
+    }
+    onTaskCreated(task);
+    setTask({ title: "", description: "", priority: 1 });
+  };
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -83,5 +95,17 @@ const TaskForm = ({ onTaskCreated, initialTask = null }) => {
     </form>
   );
 };
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (task.title.trim().length < 3) {
+    alert("Le titre doit comporter au moins 3 caractères");
+    return;
+  }
+  onTaskCreated(task);
+  setTask({ title: "", description: "", priority: 1 });
+};
+
 
 export default TaskForm;
